@@ -1,0 +1,29 @@
+- name: Configure current machine with tooling used for the ansible tutorial.
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Install VirtualBox
+      become: true
+      ansible.builtin.apt: 
+        deb: https://download.virtualbox.org/virtualbox/6.1.32/virtualbox-6.1_6.1.32-149290~Ubuntu~eoan_amd64.deb
+    - name: Install Visual Studio Code
+      become: true
+      ansible.builtin.apt: 
+        deb: https://az764295.vo.msecnd.net/stable/e18005f0f1b33c29e81d732535d8c0e47cafb0b5/code_1.66.0-1648620611_amd64.deb
+    - name: Install Vagrant
+      become: true
+      ansible.builtin.apt: 
+        deb: https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
+    - name: Install VIM
+      become: true
+      ansible.builtin.apt:
+        name: vim
+        state: present
+    - name: Install vscode extensions
+      ansible.builtin.command: 
+        cmd: "code --install-extension {{ item }}"
+        creates: "~/.vscode/extensions/{{ item }}*"
+      with_items: 
+        - bbenoist.vagrant
+        - redhat.ansible
+        - redhat.vscode-yaml

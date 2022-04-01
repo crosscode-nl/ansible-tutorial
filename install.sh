@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 echo 
 echo '################################################################################'
 echo '#                                                                              #'
@@ -9,7 +10,7 @@ echo '#                                                                         
 echo '################################################################################'
 echo 
 
-sudo apt install python3-pip git 
+sudo apt install -y python3-pip git || true
 
 echo 
 echo '################################################################################'
@@ -29,9 +30,12 @@ echo '#                                                                         
 echo '################################################################################'
 echo 
 
-mkdir ~/Projects
+mkdir -p ~/Projects
 cd ~/Projects
-git clone git@github.com:crosscode-nl/ansible-tutorial.git
+if [ ! -d ansible-tutorial ]
+then
+    git clone git@github.com:crosscode-nl/ansible-tutorial.git
+fi
 
 echo 
 echo '################################################################################'

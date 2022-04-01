@@ -34,7 +34,7 @@ mkdir -p ~/Projects
 cd ~/Projects
 if [ ! -d ansible-tutorial ]
 then
-    git clone git@github.com:crosscode-nl/ansible-tutorial.git
+    git clone https://github.com/crosscode-nl/ansible-tutorial.git
 fi
 
 echo 

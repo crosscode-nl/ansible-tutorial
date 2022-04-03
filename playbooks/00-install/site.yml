@@ -10,6 +10,14 @@
       become: true
       ansible.builtin.apt: 
         deb: https://az764295.vo.msecnd.net/stable/e18005f0f1b33c29e81d732535d8c0e47cafb0b5/code_1.66.0-1648620611_amd64.deb
+    - name: Install Visual Studio Code extensions
+      ansible.builtin.command: 
+        cmd: "code --install-extension {{ item }}"
+        creates: "~/.vscode/extensions/{{ item }}*"
+      with_items: 
+        - bbenoist.vagrant
+        - redhat.ansible
+        - redhat.vscode-yaml
     - name: Install Vagrant
       become: true
       ansible.builtin.apt: 
@@ -18,12 +26,4 @@
       become: true
       ansible.builtin.apt:
         name: vim
-        state: present
-    - name: Install vscode extensions
-      ansible.builtin.command: 
-        cmd: "code --install-extension {{ item }}"
-        creates: "~/.vscode/extensions/{{ item }}*"
-      with_items: 
-        - bbenoist.vagrant
-        - redhat.ansible
-        - redhat.vscode-yaml
+        state: present    

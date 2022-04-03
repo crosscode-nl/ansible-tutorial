@@ -1,29 +1,38 @@
-- name: Configure current machine with tooling used for the ansible tutorial.
+- name: Configure Ansible control node with tooling used for the Ansible tutorial
   hosts: localhost
-  connection: local
-  tasks:
-    - name: Install VirtualBox
+  connection: ansible.builtin.local
+  tasks:        
+    # Install VirtualBox Debian package using apt. 
+    - name: Install VirtualBox Debian package
       become: true
-      ansible.builtin.apt: 
+      ansible.builtin.apt: # See: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
         deb: https://download.virtualbox.org/virtualbox/6.1.32/virtualbox-6.1_6.1.32-149290~Ubuntu~eoan_amd64.deb
-    - name: Install Visual Studio Code
+
+    # Install Visual Studio Code Debian package
+    - name: Install Visual Studio Code Debian package
       become: true
-      ansible.builtin.apt: 
+      ansible.builtin.apt: # See: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
         deb: https://az764295.vo.msecnd.net/stable/e18005f0f1b33c29e81d732535d8c0e47cafb0b5/code_1.66.0-1648620611_amd64.deb
-    - name: Install Visual Studio Code extensions
-      ansible.builtin.command: 
+
+    # Install Visual Studio Code Extensions
+    - name: Install Visual Studio Code Extensions
+      ansible.builtin.command: # See: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html#ansible-collections-ansible-builtin-command-module
         cmd: "code --install-extension {{ item }}"
         creates: "~/.vscode/extensions/{{ item }}*"
-      with_items: 
+      with_items: # See: https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html
         - bbenoist.vagrant
         - redhat.ansible
         - redhat.vscode-yaml
-    - name: Install Vagrant
+
+    # Install Vagrant Debian package from the web
+    - name: Install Vagrant Debian package
       become: true
-      ansible.builtin.apt: 
+      ansible.builtin.apt: # See: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
         deb: https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.deb
-    - name: Install VIM
+
+    # Install VIM package
+    - name: Install VIM package
       become: true
-      ansible.builtin.apt:
+      ansible.builtin.apt: # See: https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
         name: vim
         state: present    
